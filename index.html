@@ -1,0 +1,128 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>JavaScript</title>
+    <link href="style.css" rel="stylesheet">
+  </head>
+
+  <body> 
+    <div class="list">
+      <div class="header">
+        <h1 class="name">ToDo List</h1>
+        <input class="in text" type="text" placeholder="Пиши здесь...">
+        <input class="date text" type="date">
+        <button class="add">Add</button>
+      </div>
+        <div class="out"></div>
+    </div>
+    
+    <script>
+      //создаем ГЛОБАЛЬНЫЙ массив для хранения списка дел:
+      var todoList = [];
+      if (localStorage.getItem('todo') != undefined) {
+        todoList = JSON.parse(localStorage.getItem('todo'));
+        out();
+      }
+
+      document.querySelector('.add').onclick = function () {
+        //получаем то дело, прописанное в input, которое мы должны добавить
+        var inputInner = document.querySelector('.in').value; 
+        var inputDate = document.querySelector('.date').value;
+        //как только мы кликнули по button, мы фиксируем то дело,
+        //которое нам необходимо добавить. Для этого создаем 
+        //ассоциативный массив:
+        var temp = {};
+        temp.todo = inputInner;
+        temp.todoDate = inputDate;
+        var i = todoList.length;
+        todoList[i] = temp;
+        //теперь у нас в консоли будет формироваться массив из записей
+        // в input:
+        console.log(todoList);
+        //запускаем функцию, описаную ниже, после каждого нажатия  button:
+        out();
+        // добавляем localStorage (JSON.stringify для преобразования массива 
+        // в строку, т.к. localStorage работает только со строками):
+        localStorage.setItem('todo', JSON.stringify(todoList));
+      }
+
+      // организуем вывод всех необходимых дел в блок под кнопками:
+      function out() {
+        var out = '';
+        for (var i in todoList) {
+          //формируем строку из данных и добавляем кнопку УДАЛИТЬ рядом с делом
+          //из списка:
+          out += todoList[i].todo + ' ' + todoList[i].todoDate + '<button class="trash">Delete</button>' + '<br><br>';
+        }
+        document.querySelector('.out').innerHTML = out;
+      }
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- <script>
+      //создаем ГЛОБАЛЬНЫЙ массив для хранения списка дел:
+      var todoList = [];
+      if (localStorage.getItem('todo') != undefined) {
+        todoList = JSON.parse(localStorage.getItem('todo'));
+        out();
+      }
+
+      document.querySelector('.add').onclick = function () {
+        //получаем то дело, прописанное в input, которое мы должны добавить
+        var inputInner = document.querySelector('.in').value; 
+        //как только мы кликнули по button, мы фиксируем то дело,
+        //которое нам необходимо добавить. Для этого создаем 
+        //ассоциативный массив:
+        var temp = {};
+        temp.todo = inputInner;
+        temp.check = false;
+        var i = todoList.length;
+        todoList[i] = temp;
+        //теперь у нас в консоли будет формироваться массив из записей
+        // в input:
+        console.log(todoList);
+        //запускаем функцию, описаную ниже, после каждого нажатия  button:
+        out();
+        // добавляем localStorage (JSON.stringify для преобразования массива 
+        // в строку, т.к. localStorage работает только со строками):
+        localStorage.setItem('todo', JSON.stringify(todoList));
+      }
+
+      // организуем вывод всех необходимых дел в блок под кнопками:
+      function out() {
+        var out = '';
+        //формируем список:
+        for (var key in todoList) {
+          //выводим чек-боксы рядом с делом, которое нужно выполнить:
+          if(todoList[key] == true) {
+            out += '<input type="checkbox" cheked>';
+          } else {
+            out += '<input type ="checkbox">';
+          }
+          out += todoList[key].todo + '<br>';
+        }
+        document.querySelector('.out').innerHTML = out;
+      }
+    </script> -->
+
+  </body>
+</html>
+
+
+
