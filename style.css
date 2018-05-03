@@ -63,15 +63,26 @@ body {
 
 }
 
-.out {
+#list {
     position: relative;
     padding: 0 0 10px 10px;
+}
+
+ul li {
+    margin-bottom: 10px;
+    
+    cursor: pointer;
+    /*-webkit-user-select: none; для отмены выделения текста при двойном клике*/
+}
+
+ul li.checked {
+    text-decoration: line-through;
 }
 
 .trash {
     position: absolute;
     right: 10px;
-
+    
     width: 50px;
     height: 18px;
 
